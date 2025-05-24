@@ -1,0 +1,50 @@
+<!-- students/templates/students/student_confirm_delete.html -->
+{% extends 'students/base.html' %}
+
+{% block title %}Delete Student{% endblock %}
+
+{% block extra_css %}
+<style>
+    .delete-container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .alert-warning {
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        color: #856404;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #e2e6ea;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <h2 class="mb-4 text-danger">Confirm Deletion</h2>
+
+    <div class="alert alert-warning shadow-sm" role="alert">
+        Are you sure you want to delete <strong>{{ student.name }}</strong> (Roll No: <strong>{{ student.roll_number }}</strong>)?
+    </div>
+
+    <form method="post" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger px-4 me-2">Yes, Delete</button>
+        <a href="{% url 'student_list' %}" class="btn btn-outline-secondary px-4">Cancel</a>
+    </form>
+</div>
+{% endblock %}

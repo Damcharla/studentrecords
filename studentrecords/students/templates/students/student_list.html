@@ -1,0 +1,89 @@
+<!-- students/templates/students/student_list.html -->
+{% extends 'students/base.html' %}
+
+{% block title %}Student List{% endblock %}
+
+{% block extra_css %}
+<style>
+    .table-wrapper {
+        overflow-x: auto;
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        background-color: #fff;
+        padding: 1rem;
+    }
+
+    .table thead th {
+        background-color: #f1f3f5;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        font-weight: 600;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.85rem;
+        border-radius: 6px;
+    }
+
+    /* Action buttons spacing */
+    td > a.btn + a.btn {
+        margin-left: 0.5rem;
+    }
+
+    /* Center "No students found" message */
+    .text-center {
+        font-style: italic;
+        color: #6c757d;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Student List</h2>
+
+<a href="{% url 'student_create' %}" class="btn btn-success mb-3">Add New Student</a>
+
+<div class="table-wrapper">
+    <table class="table table-striped mb-0 align-middle">
+        <thead>
+            <tr>
+                <th>Roll Number</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>grade</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+            <tr>
+                <td>{{ student.roll_number }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.age }}</td>
+                <td>{{ student.marks }}</td>
+                <td>
+                    <a href="{% url 'student_update' student.id %}" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="{% url 'student_delete' student.id %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No students found.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
